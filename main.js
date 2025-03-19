@@ -75,7 +75,6 @@ function aboutWindow() {
 
     })
   }
-
   about.loadFile('./src/views/sobre.html')
 }
 
@@ -116,7 +115,7 @@ app.on('window-all-closed', () => {
 })
 
 // IMPORTANTE!!! Desconectar do banco de dados quando a aplicação for finalizada
-app.on('before-quit', async() =>{
+app.on('before-quit', async () => {
   await desconectar()
 })
 

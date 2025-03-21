@@ -17,35 +17,36 @@ const url = 'mongodb+srv://admin:123Senac@cluster0.fnijm.mongodb.net/dbnotes'
 // Validação (evitar a abertura de várias conexões)
 let conectado = false
 
-// método/função para conectar
+// método para conectar com o banco de dados
 const conectar = async () => {
-    // Se não estiver conectado/(conectado = false)
+    // se não estiver conectado
     if (!conectado) {
-        // Conectar com o banco de dados
+        //conectar com o banco de dados
         try {
-            await mongoose.connect(url) // conectar
-            console.log("MongoDB Conectado")
-            conectado = true
+            await mongoose.connect(url) //conectar
+            conectado = true //setar a variável
+            console.log("MongoDB conectado")
         } catch (error) {
+            //tratamento de exceções especificas
             console.log(error)
         }
     }
 }
 
-// método/função para desconectar
+// método para desconectar do banco de dados
 const desconectar = async () => {
-    // Se estiver conectado/(conectado = true)
+    // se estiver conectado
     if (conectado) {
-        // Desconectar
+        // desconectar
         try {
-            await mongoose.disconnect(url)
-            console.log("MongoDB Desconectado")
-            conectado = false
+            await mongoose.disconnect(url) //desconectar
+            conectado = false //setar a variável
+            console.log("MongoDB desconectado")
         } catch (error) {
             console.log(error)
         }
     }
 }
 
-// Exportar para o main os métodos conectar e disconectar
+//exportar para o main os métodos conectar e desconectar
 module.exports = { conectar, desconectar }

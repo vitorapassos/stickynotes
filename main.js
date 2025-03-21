@@ -63,19 +63,72 @@ function aboutWindow() {
   if (mainWindow) {
 
     about = new BrowserWindow({
-      width: 320,
-      height: 280,
+      width: 300,
+      height: 200,
       autoHideMenuBar: true,
       resizable: false,
       minimizable: false,
       // Estabelecer uma relação hierarquica entre janelas
       parent: mainWindow,
       // Criar uma janela modal (só retorna a principal quando encerrada)
-      modal: true
+      modal: true,
+      // Com essa linha estou vinculando a janela Sobre com o preload.js
+      webPreferences: {
+        preload: path.join(__dirname, 'preload.js')
+      }
 
     })
   }
   about.loadFile('./src/views/sobre.html')
+
+  // Recebimento da mensagem do renderizador da tela sobre para fechar  a janela usando o botão
+  ipcMain.on('about-exit', () => {
+    // Validação: se existir a janela e ela não estiver destruída, fechar
+    if (about && !about.isDestroyed()) {
+      about.close()
+    }
+  })
+}
+
+// Janela Nota
+let note
+function noteWindow() {
+  nativeTheme.themeSource = 'light'
+
+  // Obter a janela principal
+  const mainWindow = BrowserWindow.getFocusedWindow()
+
+  //validação (se existir a janela principal)
+  if (mainWindow) {
+
+    note = new BrowserWindow({
+      width: 400,
+      height: 300,
+      autoHideMenuBar: true,
+      resizable: false,
+      minimizable: false,
+      // Estabelecer uma relação hierarquica entre janelas
+      parent: mainWindow,
+      // Criar uma janela modal (só retorna a principal quando encerrada)
+      modal: true,
+      // Com essa linha estou vinculando a janela Sobre com o preload.js
+      webPreferences: {
+        preload: path.join(__dirname, 'preload.js')
+      }
+
+    })
+  }
+  note.loadFile('./src/views/nota.html')
+
+  //Talvez utilizar no botão cancelar
+  /** 
+    // Recebimento da mensagem do renderizador da tela sobre para fechar  a janela usando o botão
+    ipcMain.on('about-exit', () =>{
+      // Validação: se existir a janela e ela não estiver destruída, fechar
+      if(note && !note.isDestroyed()){
+        note.close()
+      }
+    }) */
 }
 
 // inicialização da aplicação (assincronismo)
@@ -134,7 +187,7 @@ const template = [
         // tecla de atalho
         accelerator: 'Ctrl+N',
         // "função"
-        //click: () => console.log("teste")
+        click: () => noteWindow()
       },
       {
         type: 'separator'

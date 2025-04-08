@@ -18,6 +18,8 @@ contextBridge.exposeInMainWorld('api', {
     dbStatus: (message) => ipcRenderer.on('db-status', message),
     aboutExit: () => ipcRenderer.send('about-exit'),
     createNote: (stickyNote) => ipcRenderer.send('create-note', stickyNote),
-    // para mandar um argumento vazio, utilizar args(obrigatório no electron)
-    resetForm: (args) => ipcRenderer.on('reset-form', args)
+    // para mandar um argumento vazio, utilizar args(obrigatório no electron) args somente quando .on
+    resetForm: (args) => ipcRenderer.on('reset-form', args),
+    listNotes: () => ipcRenderer.send('list-notes'),
+    renderNotes:(notes) => ipcRenderer.on('render-notes', notes)
 })

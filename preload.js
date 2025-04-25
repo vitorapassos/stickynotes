@@ -15,11 +15,16 @@ ipcRenderer.send('db-connect')
 
 // permissões para estabelecer a comunicação entre processos
 contextBridge.exposeInMainWorld('api', {
+    dbConnect: () => ipcRenderer.send('db-connect'),
     dbStatus: (message) => ipcRenderer.on('db-status', message),
     aboutExit: () => ipcRenderer.send('about-exit'),
     createNote: (stickyNote) => ipcRenderer.send('create-note', stickyNote),
     // para mandar um argumento vazio, utilizar args(obrigatório no electron) args somente quando .on
     resetForm: (args) => ipcRenderer.on('reset-form', args),
     listNotes: () => ipcRenderer.send('list-notes'),
-    renderNotes:(notes) => ipcRenderer.on('render-notes', notes)
+    renderNotes:(notes) => ipcRenderer.on('render-notes', notes),
+    updateList: () => ipcRenderer.send('update-list'),
+    // args sempre que algo for enviado do main pro renderer
+    mainReload: (args) => ipcRenderer.on('main-reload', args)
+
 })

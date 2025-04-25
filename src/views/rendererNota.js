@@ -13,6 +13,21 @@ document.addEventListener('DOMContentLoaded', () =>{
     foco.focus() // iniciar o documento com foco na caixa de texto
 })
 
+/*function teclaEnter(event){
+
+    if(event.key ===)
+    // Resetar os padrões
+    event.preventDefault();
+    //
+    event.addEventListener('keydown', "Enter")
+    // Enviar o objeto para o main (Fluxo - Passo 2)
+    api.createNote(stickyNote)
+}
+
+// executa a ação
+frmNote.addEventListener('keydown', teclaEnter)
+*/
+
 // Capturar os dados do formulário
 let frmNote = document.getElementById('frmNote')
 let note = document.getElementById('inputNote')
@@ -49,8 +64,10 @@ frmNote.addEventListener('submit', async (event) => {
 // ================= RESET FORM ==================
 
 api.resetForm((args) => {
-    //recarregar a página
+    // Recarregar a página
     location.reload()
+    // Recarregar a página principal(atualizar notas)
+    api.updateList()
   })
   
   // ===============================================

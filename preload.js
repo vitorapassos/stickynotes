@@ -25,6 +25,7 @@ contextBridge.exposeInMainWorld('api', {
     renderNotes:(notes) => ipcRenderer.on('render-notes', notes),
     updateList: () => ipcRenderer.send('update-list'),
     // args sempre que algo for enviado do main pro renderer
-    mainReload: (args) => ipcRenderer.on('main-reload', args)
+    mainReload: (args) => ipcRenderer.on('main-reload', args),
+    deleteNote: (id) => ipcRenderer.send('delete-note', id)
 
 })

@@ -3,4 +3,4 @@
 # StickyNotes
 Projeto de notas autoadesivas (estilo post-it) usando o framework Electron e o banco de dados MongoDB
 
-![](src/public/img/SCREEN-SHOT.png)
+![]([src/public/img/SCREEN-SHOT.png](https://github.com/vitorapassos/stickynotes/blob/main/src/public/img/SCREEN-SHOT.png))

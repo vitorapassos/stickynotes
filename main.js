@@ -1,8 +1,3 @@
-/**
- *
- *
- */
-
 const {
   app,
   BrowserWindow,
@@ -25,7 +20,7 @@ const createWindow = () => {
   win = new BrowserWindow({
     width: 1010,
     height: 720,
-     resizable: false,
+    resizable: false,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
@@ -112,7 +107,6 @@ app.on("before-quit", async () => {
 
 app.commandLine.appendSwitch("log-level", "3");
 
-
 const template = [
   {
     label: "Notas",
@@ -177,7 +171,6 @@ const template = [
 ];
 
 ipcMain.on("create-note", async (event, stickyNote) => {
-
   try {
     const newNote = noteModel({
       texto: stickyNote.textNote,
@@ -189,9 +182,7 @@ ipcMain.on("create-note", async (event, stickyNote) => {
   }
 });
 
-
 ipcMain.on("list-notes", async (event) => {
-  
   try {
     const notes = await noteModel.find();
     event.reply("render-notes", JSON.stringify(notes));
@@ -209,7 +200,7 @@ function updateList() {
     win.webContents.send("main-reload");
     setTimeout(() => {
       win.webContents.send("db-status", "conectado");
-    }, 200); 
+    }, 200);
     win.webContents.send("");
   }
 }
@@ -220,7 +211,7 @@ ipcMain.on("delete-note", async (event, id) => {
     title: "Atenção!",
     message:
       "Tem certeza que deseja excluir esta nota?\nEsta ação não podera ser desfeita.",
-    buttons: ["Cancelar", "Excluir"], 
+    buttons: ["Cancelar", "Excluir"],
   });
 
   if (result.response === 1) {
@@ -232,4 +223,3 @@ ipcMain.on("delete-note", async (event, id) => {
     }
   }
 });
-
